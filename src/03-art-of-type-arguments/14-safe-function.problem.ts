@@ -2,13 +2,13 @@ import { expect, it } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
 const makeSafe =
-  (func: unknown) =>
+  <T extends (...args: any[]) => any>(func: T) =>
   (
-    ...args: unknown
+    ...args: Parameters<T>
   ):
     | {
         type: "success";
-        result: unknown;
+        result: ReturnType<T>;
       }
     | {
         type: "failure";
